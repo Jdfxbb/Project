@@ -7,7 +7,6 @@
 #include <random>
 #include <functional>
 #include <algorithm>
-#include "Location.h"
 #include "Team.h"
 using namespace std;
 
