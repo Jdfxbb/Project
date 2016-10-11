@@ -149,6 +149,7 @@
     <Text Include="classdata.txt" />
     <Text Include="classdata2.txt" />
     <Text Include="data.txt" />
+    <Text Include="stats.txt" />
     <Text Include="teams.txt" />
   </ItemGroup>
   <ItemGroup>

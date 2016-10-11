@@ -51,14 +51,18 @@ string Team::getState(){
 string Team::getOutput(){
 	return txt;
 }
-double Team::getPitching(){
+int Team::getPitching(){
 	return this->pitching;
 }
-double Team::getBatting(){
+int Team::getBatting(){
 	return this->batting;
 }
-double Team::getDefense(){
+int Team::getDefense(){
 	return this->defense;
+}
+int Team::getAverage() {
+	average = (this->batting + this->pitching + this->defense) / 3;
+	return this->average;
 }
 
 // set
@@ -74,14 +78,14 @@ void Team::setState(string state){
 void Team::setRegion(string region){
 	this->region = region;
 }
-void Team::modPitching(double n){
-	this->pitching += n; 
+void Team::modPitching(int n){
+	this->pitching = n; 
 }
-void Team::modBatting(double n){
-	this->batting += n;
+void Team::modBatting(int n){
+	this->batting = n;
 }
-void Team::modDefense(double n){
-	this->defense += n;
+void Team::modDefense(int n){
+	this->defense = n;
 }
 
 //operators

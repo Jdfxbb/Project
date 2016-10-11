@@ -9,7 +9,7 @@ class Team{
 
 private:
 	string name, city, state, region, txt;
-	double pitching, batting, defense;
+	int pitching, batting, defense, average;
 
 public:
 	Team();
@@ -23,9 +23,10 @@ public:
 	string getRegion();
 	string getState();
 	string getOutput();
-	double getPitching();
-	double getBatting();
-	double getDefense();
+	int getPitching();
+	int getBatting();
+	int getDefense();
+	int getAverage();
 
 	//set
 	void setName(string name);
@@ -34,9 +35,9 @@ public:
 	void setRegion(string region);
 
 	//modify
-	void modPitching(double n);
-	void modBatting(double n);
-	void modDefense(double n);
+	void modPitching(int n);
+	void modBatting(int n);
+	void modDefense(int n);
 
 	//operators
 	friend istream& operator >>(istream& in, Team& other);

@@ -35,6 +35,9 @@
     <Text Include="teams.txt">
       <Filter>Resource Files</Filter>
     </Text>
+    <Text Include="stats.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">

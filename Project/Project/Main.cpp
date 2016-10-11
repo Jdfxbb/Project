@@ -14,6 +14,7 @@ void assignTeams(list<Team>& teams);
 void saveTeams(list<Team> teams, string output);
 void getTeams(list<Team>& teams, string input);
 list<list<Team>> organize(list<Team>& teams);
+list<Team> setStats(list<Team>& teams);
 
 void main() {
 	list<Team> teams;
@@ -27,6 +28,8 @@ void main() {
 
 	saveTeams(teams, "classdata.txt");
 
+	setStats(teams);
+
 	system("pause");
 }
 
@@ -39,9 +42,10 @@ void getTeams(list<Team>& teams, string input) {
 		return;
 	}
 
+	fin >> team;
 	while (fin.good()) {
-		fin >> team;
 		teams.push_back(team);
+		fin >> team;
 	}
 }
 
@@ -50,18 +54,18 @@ void assignTeams(list<Team>& teams) {
 	Team team;
 
 	// team names
-	string tnames[652];
+	string tnames[651];
 
 	// populate team name array
 	ifstream tin("teams.txt");
-	for (int i = 0; i < 652; i++) {
+	for (int i = 0; i < 651; i++) {
 		getline(tin, temp);
 		tnames[i] = temp;
 	}
 
 	//random number generator
 	default_random_engine gen(time(NULL));
-	uniform_int_distribution<int> dist(0, 651);
+	uniform_int_distribution<int> dist(0, 650);
 	auto assign = bind(dist, gen);
 
 	for (list<Team>::iterator it = teams.begin(); it != teams.end(); it++) {
@@ -74,7 +78,9 @@ void saveTeams(list<Team> teams, string output) {
 	list<Team>::iterator it;
 
 	for (it = teams.begin(); it != teams.end(); it++) {
-		fout << *it << endl;
+		if (it->getCity() != "" && it->getCity() != " ") {
+			fout << *it << endl;
+		}
 	}
 	fout.close();
 }
@@ -150,4 +156,23 @@ list<list<Team>> organize(list<Team>& teams) {
 		}
 	}
 	return RegionLists;
+}
+
+list<Team> setStats(list<Team>& teams) {
+
+	default_random_engine gen(time(NULL));
+	uniform_int_distribution<int> dist(300, 999);
+	auto set = bind(dist, gen);
+
+	ofstream fout("stats.txt");
+
+	list<Team>::iterator it;
+	for (it = teams.begin(); it != teams.end(); it++) {
+		it->modBatting(set());
+		it->modDefense(set());
+		it->modPitching(set());
+		fout << it->getCity() << " " << it->getName() << it->getState() << " " << it->getAverage() << endl;
+	}
+	fout.close();
+	return teams;
 }
