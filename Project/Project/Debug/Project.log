@@ -1,2 +1,11 @@
-﻿  Project.vcxproj -> C:\Users\User\Documents\GitHub\Project\Project\Debug\Project.exe
+﻿  Main.cpp
+c:\users\user\documents\github\project\project\project\game.h(31): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+c:\users\user\documents\github\project\project\project\game.h(39): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+c:\users\user\documents\github\project\project\project\game.h(50): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+c:\users\user\documents\github\project\project\project\game.h(73): warning C4018: '<': signed/unsigned mismatch
+c:\users\user\documents\github\project\project\project\game.h(77): warning C4018: '<': signed/unsigned mismatch
+c:\users\user\documents\github\project\project\project\main.cpp(26): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+c:\users\user\documents\github\project\project\project\main.cpp(92): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+c:\users\user\documents\github\project\project\project\main.cpp(188): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  Project.vcxproj -> C:\Users\User\Documents\GitHub\Project\Project\Debug\Project.exe
   Project.vcxproj -> C:\Users\User\Documents\GitHub\Project\Project\Debug\Project.pdb (Full PDB)

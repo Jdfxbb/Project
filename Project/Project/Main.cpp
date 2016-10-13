@@ -8,6 +8,7 @@
 #include <functional>
 #include <algorithm>
 #include "Team.h"
+#include "Game.h"
 using namespace std;
 
 void assignTeams(list<Team>& teams);
@@ -19,7 +20,6 @@ list<Team> setStats(list<Team>& teams);
 void main() {
 	list<Team> teams;
 
-
 	getTeams(teams, "classdata2.txt");
 
 	assignTeams(teams);
@@ -29,6 +29,16 @@ void main() {
 	saveTeams(teams, "classdata.txt");
 
 	setStats(teams);
+
+	Game game;
+	list<Team>::iterator it;
+	it = teams.begin();
+	it++;
+	Team team = *it;
+	for (it; it != teams.end(); it++) {
+		Game game(team, *it);
+
+	}
 
 	system("pause");
 }
