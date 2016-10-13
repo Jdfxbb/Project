@@ -23,19 +23,16 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="classdata2.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
-    <Text Include="classdata.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
     <Text Include="data.txt">
       <Filter>Resource Files</Filter>
     </Text>
     <Text Include="teams.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="stats.txt">
+    <Text Include="NewClassData.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="TeamClassData.txt">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>

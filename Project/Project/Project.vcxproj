@@ -146,10 +146,9 @@
     <None Include="regions.xlsx" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="classdata.txt" />
-    <Text Include="classdata2.txt" />
     <Text Include="data.txt" />
-    <Text Include="stats.txt" />
+    <Text Include="NewClassData.txt" />
+    <Text Include="TeamClassData.txt" />
     <Text Include="teams.txt" />
   </ItemGroup>
   <ItemGroup>

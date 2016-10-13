@@ -20,25 +20,16 @@ list<Team> setStats(list<Team>& teams);
 void main() {
 	list<Team> teams;
 
-	getTeams(teams, "classdata2.txt");
+	getTeams(teams, "NewClassData.txt");
+
+	teams.unique();
+	teams.sort();
 
 	assignTeams(teams);
 
 	list<list<Team>> Regions = organize(teams);
 
-	saveTeams(teams, "classdata.txt");
-
-	setStats(teams);
-
-	Game game;
-	list<Team>::iterator it;
-	it = teams.begin();
-	it++;
-	Team team = *it;
-	for (it; it != teams.end(); it++) {
-		Game game(team, *it);
-
-	}
+	saveTeams(teams, "TeamClassData.txt");
 
 	system("pause");
 }
@@ -64,22 +55,23 @@ void assignTeams(list<Team>& teams) {
 	Team team;
 
 	// team names
-	string tnames[651];
+	vector<string> names;
 
 	// populate team name array
 	ifstream tin("teams.txt");
-	for (int i = 0; i < 651; i++) {
+	getline(tin, temp);
+	while (tin.good()) {
+		names.push_back(temp);
 		getline(tin, temp);
-		tnames[i] = temp;
 	}
 
 	//random number generator
 	default_random_engine gen(time(NULL));
-	uniform_int_distribution<int> dist(0, 650);
+	uniform_int_distribution<int> dist(0, names.size() - 1);
 	auto assign = bind(dist, gen);
 
 	for (list<Team>::iterator it = teams.begin(); it != teams.end(); it++) {
-		it->setName(tnames[assign()]);
+		it->setName(names[assign()]);
 	}
 }
 
@@ -178,9 +170,9 @@ list<Team> setStats(list<Team>& teams) {
 
 	list<Team>::iterator it;
 	for (it = teams.begin(); it != teams.end(); it++) {
-		it->modBatting(set());
-		it->modDefense(set());
-		it->modPitching(set());
+		it->setBatting(set());
+		it->setDefense(set());
+		it->setPitching(set());
 		fout << it->getCity() << " " << it->getName() << it->getState() << " " << it->getAverage() << endl;
 	}
 	fout.close();

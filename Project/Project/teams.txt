@@ -259,6 +259,7 @@ Gryphons
 Gulls
 Gusties
 Hammerheads
+Harambes
 Hardrockers
 Harriers
 Harvesters
@@ -632,6 +633,7 @@ Warhawks
 Warriors
 Wasps
 Waves
+Whales
 Whirlwinds
 White Mules
 White Sox

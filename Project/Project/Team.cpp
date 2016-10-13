@@ -1,25 +1,28 @@
 #include "Team.h"
 
 Team::Team(){ // default
-	this->name = this->city = this->region = this->state = "";
-	this->pitching = this->batting = this->defense = 0;
+	this->name = this->city = this->state = this->zip = this->county = this->region = "";
+	this->batting = this->defense = 0;
 }
 Team::Team(const Team& other){ // copy
 	this->name = other.name;
 	this->city = other.city;
 	this->state = other.state;
+	this->zip = other.zip;
+	this->county = other.county;
 	this->region = other.region;
-	this->pitching = other.pitching;
 	this->batting = other.batting;
 	this->defense = other.defense;
 }
 
-Team::Team(string name, string city, string state, string region){ // construct
+Team::Team(string name, string city, string state, string zip, string county, string region) { // assignment
 	this->name = name;
 	this->city = city;
 	this->state = state;
+	this->zip = zip;
+	this->county = county;
 	this->region = region;
-	this->pitching = this->batting = this->defense = 0;
+	this->batting = this->defense = 0;
 }
 
 const Team& Team:: operator=(const Team& rhs){
@@ -27,84 +30,42 @@ const Team& Team:: operator=(const Team& rhs){
 		this->name = rhs.name;
 		this->city = rhs.city;
 		this->state = rhs.state;
+		this->zip = rhs.zip;
+		this->county = rhs.county;
 		this->region = rhs.region;
 		this->batting = rhs.batting;
-		this->pitching = rhs.pitching;
 		this->defense = rhs.defense;
 	}
 	return *this;
 }
 
-//get
-string Team::getName(){
-	return this->name;
-}
-string Team::getCity(){
-	return this->city;
-}
-string Team::getRegion(){
-	return this->region;
-}
-string Team::getState(){
-	return this->state;
-}
-string Team::getOutput(){
-	return txt;
-}
-int Team::getPitching(){
-	return this->pitching;
-}
-int Team::getBatting(){
-	return this->batting;
-}
-int Team::getDefense(){
-	return this->defense;
-}
-int Team::getAverage() {
-	average = (this->batting + this->pitching + this->defense) / 3;
-	return this->average;
-}
-
-// set
-void Team::setName(string name){
-	this->name = name;
-}
-void Team::setCity(string city){
-	this->city = city;
-}
-void Team::setState(string state){
-	this->state = state;
-}
-void Team::setRegion(string region){
-	this->region = region;
-}
-void Team::modPitching(int n){
-	this->pitching = n; 
-}
-void Team::modBatting(int n){
-	this->batting = n;
-}
-void Team::modDefense(int n){
-	this->defense = n;
-}
-
 //operators
 istream& operator >> (istream& in, Team& other){
 	getline(in, other.city);
-	getline(in, other.name);
-	in >> other.state >> other.region;
-	in.ignore();
+	//getline(in, other.name);
+	getline(in, other.state);
+	getline(in, other.zip);
+	getline(in, other.county);
+	//in >> other.state >> other.region;
 	return in; 
 }
 ostream& operator << (ostream& out, const Team& other){
-	return out << other.city << endl << other.name << endl << other.state << " " << other.region;
+	return out << other.city << endl
+	<< other.name << endl
+	<< other.state << endl
+	<< other.zip << endl
+	<< other.county << endl
+	<< other.region;
 }
 bool Team::operator ==(const Team& rhs){
-	return this->city == rhs.city;
+	return this->zip == rhs.zip;
 }
 bool Team::operator <(const Team& rhs){
-	if (this->state == rhs.state){
+	if (this->state != rhs.state){
+		return this->state < rhs.state;
+	}
+	if (this->city != rhs.city) {
 		return this->city < rhs.city;
 	}
-	return this->state < rhs.state;
+	return this->name < rhs.name;
 }
