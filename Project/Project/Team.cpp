@@ -2,7 +2,7 @@
 
 Team::Team(){ // default
 	this->name = this->city = this->state = this->zip = this->county = this->region = "";
-	this->batting = this->defense = this->wins = this->losses = 0;
+	this->batting = this->defense = this->wins = this->losses = this->next = 0;
 	for (int i = 0; i < 5; i++) {
 		rotation[i] = 0;
 	}
@@ -19,6 +19,7 @@ Team::Team(const Team& other){ // copy
 	this->defense = other.defense;
 	this->wins = other.wins;
 	this->losses = other.losses;
+	this->next = 0;
 	for (int i = 0; i < 5; i++) {
 		rotation[i] = other.rotation[i];
 	}
@@ -56,11 +57,11 @@ const Team& Team:: operator=(const Team& rhs){
 //operators
 istream& operator >> (istream& in, Team& other){
 	getline(in, other.city);
-	//getline(in, other.name);
+	getline(in, other.name);
 	getline(in, other.state);
 	getline(in, other.zip);
 	getline(in, other.county);
-	//in >> other.state >> other.region;
+	getline(in, other.region);
 	return in; 
 }
 ostream& operator << (ostream& out, const Team& other){
@@ -100,4 +101,5 @@ void Team::setStats() {
 	for (int i = 0; i < 5; i++) {
 		this->setPitching(setP(), i);
 	}
+	this->next = 0;
 }

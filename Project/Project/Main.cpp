@@ -11,30 +11,28 @@
 #include "Game.h"
 using namespace std;
 
-void assignTeams(list<Team>& teams);
-void saveTeams(list<Team> teams, string output);
-void getTeams(list<Team>& teams, string input);
-list<list<Team>> organize(list<Team>& teams);
-void setStats(list<Team>& teams);
+void assignTeams(vector<Team>& teams); // assigns random team names and stats
+void saveTeams(vector<Team> teams, string output); // puts current team dat in output file
+void getTeams(vector<Team>& teams, string input); // populates team list from input file
+vector<vector<Team>> organize(vector<Team>& teams); // assigns team to region, populates list of regions, not sure how to handle this data yet, probably needs to be split up into a few functions
 
 void main() {
-	list<Team> teams;
+	vector<Team> teams; // make this a vector maybe?
 
-	getTeams(teams, "NewClassData.txt");
-
+	getTeams(teams, "TeamClassData.txt");
 	assignTeams(teams);
 
-	list<list<Team>> Regions = organize(teams);
+	for (int i = 1; i < 10000; i++) { // this isn't working
+		Game game(teams[0], teams[i]);
+		game.play();
+	}
+	cout << teams[0].getWins() << " - " << teams[0].getLosses() << endl;
 
-	//teams.sort();
-	//teams.unique();
 
-	//saveTeams(teams, "TeamClassData.txt");
-
-	setStats(teams);
+	system("pause");
 }
 
-void getTeams(list<Team>& teams, string input) {
+void getTeams(vector<Team>& teams, string input) {
 	ifstream fin(input);
 	Team team;
 
@@ -50,7 +48,7 @@ void getTeams(list<Team>& teams, string input) {
 	}
 }
 
-void assignTeams(list<Team>& teams) {
+void assignTeams(vector<Team>& teams) { // random numbers not working
 	string temp;
 	Team team;
 
@@ -70,15 +68,15 @@ void assignTeams(list<Team>& teams) {
 	uniform_int_distribution<int> dist(0, names.size() - 1);
 	auto assign = bind(dist, gen);
 
-	for (list<Team>::iterator it = teams.begin(); it != teams.end(); it++) {
+	for (vector<Team>::iterator it = teams.begin(); it != teams.end(); it++) {
 		it->setName(names[assign()]);
 		it->setStats();
 	}
 }
 
-void saveTeams(list<Team> teams, string output) {
+void saveTeams(vector<Team> teams, string output) {
 	ofstream fout(output);
-	list<Team>::iterator it;
+	vector<Team>::iterator it;
 
 	for (it = teams.begin(); it != teams.end(); it++) {
 		if (it->getCity() != "" && it->getCity() != " ") {
@@ -88,15 +86,15 @@ void saveTeams(list<Team> teams, string output) {
 	fout.close();
 }
 
-list<list<Team>> organize(list<Team>& teams) {
-	list<Team>::iterator it;
-	list<string>::iterator strit;
-	list<list<string>>::iterator stringit;
+vector<vector<Team>> organize(vector<Team>& teams) {
+	vector<Team>::iterator it;
+	vector<string>::iterator strit;
+	vector<vector<string>>::iterator stringit;
 
-	list<Team> W, N, MW, GL, C, NE, SE, SW;
-	list<list<Team>> RegionLists = { W, N, MW, GL, C, NE, SE, SW };
+	vector<Team> W, N, MW, GL, C, NE, SE, SW;
+	vector<vector<Team>> RegionLists = { W, N, MW, GL, C, NE, SE, SW };
 
-	list<string> West, North, Midwest, GreatLakes, Coastal, Northeast, Southeast, Southwest;
+	vector<string> West, North, Midwest, GreatLakes, Coastal, Northeast, Southeast, Southwest;
 	
 	West = { "AK", "CA", "NV", "OR", "WA", "HI", "ID", "UT" };
 	North = { "CO", "MN", "MT", "ND", "NE", "SD", "WY" };
@@ -106,7 +104,7 @@ list<list<Team>> organize(list<Team>& teams) {
 	Northeast = { "MA", "ME", "PA", "NH", "NY", "RI", "VT" };
 	Southeast = { "AL", "FL", "GA", "SC", "TN", "KY" };
 	Southwest = { "AZ", "LA", "NM", "TX", "OK" };
-	list<list<string>> RegionStrings = { West, North, Midwest, GreatLakes, Coastal, Northeast, Southeast, Southwest };
+	vector<vector<string>> RegionStrings = { West, North, Midwest, GreatLakes, Coastal, Northeast, Southeast, Southwest };
 	
 
 	for (it = teams.begin(); it != teams.end(); it++) { // for teams

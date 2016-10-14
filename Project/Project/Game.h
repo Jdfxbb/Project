@@ -10,9 +10,9 @@
 
 using namespace std;
 
-struct Game {
+struct Game { // this can be made smoother
 	Team home, away;
-	vector<int> boxHome, boxAway;
+	vector<int> boxHome, boxAway; // vectors for box score
 	int inning, balance;
 	int Hscore, Ascore, Htotal, Atotal, offense, defense;
 
@@ -20,8 +20,7 @@ struct Game {
 		Hscore = Ascore = 0;
 	}
 	Game(Team& home, Team& away) {
-		Hscore = Ascore = Htotal = Atotal = 0;
-		balance = 150;
+		balance = 150; // higher number should mean lower scoring games
 		inning = 1;
 		this->home = home;
 		this->away = away;
@@ -33,6 +32,7 @@ struct Game {
 		uniform_int_distribution<int> def(1, 300);
 		auto setO = bind(off, gen);
 		auto setD = bind(def, gen);
+		Atotal = Htotal = 0;
 
 		while (Htotal == Atotal || inning <= 9) {
 			Hscore = Ascore = 0;
@@ -58,6 +58,7 @@ struct Game {
 					Hscore = (offense - defense) / balance;
 				}
 			}
+
 			boxHome.push_back(Hscore);
 			boxAway.push_back(Ascore);
 			Htotal += Hscore;
@@ -65,12 +66,24 @@ struct Game {
 			inning++;
 		}
 
-		//if (Atotal > Htotal) {
-		//	return away;
-		//}
-		//return home;
+		if (Atotal > Htotal) {
+			away.win();
+			home.lose();
+			return;
+		}
+		else {
+			home.win();
+			away.lose();
+			return;
+		}
 	}
-	friend ostream& operator <<(ostream& out, Game& other) {
+
+
+	friend ostream& operator <<(ostream& out, Game& other) { /*use some columns to make this look nicer 
+						1	2	3	4	5	6	7	8	9	R	 something like this
+		Orlando Bobcats 0	2	0	1	0	0	0	0	0	3
+		Lansing Aces    0	0	0	1	0	0	0	1	0	2
+															 */
 		out << other.away.getCity() << " @ " << other.home.getCity() << endl;
 		for (int i = 0; i < other.boxAway.size(); i++) {
 			out << other.boxAway[i] << " ";
