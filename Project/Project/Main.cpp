@@ -15,23 +15,23 @@ void assignTeams(list<Team>& teams);
 void saveTeams(list<Team> teams, string output);
 void getTeams(list<Team>& teams, string input);
 list<list<Team>> organize(list<Team>& teams);
-list<Team> setStats(list<Team>& teams);
+void setStats(list<Team>& teams);
 
 void main() {
 	list<Team> teams;
 
 	getTeams(teams, "NewClassData.txt");
 
-	teams.unique();
-	teams.sort();
-
 	assignTeams(teams);
 
 	list<list<Team>> Regions = organize(teams);
 
-	saveTeams(teams, "TeamClassData.txt");
+	//teams.sort();
+	//teams.unique();
 
-	system("pause");
+	//saveTeams(teams, "TeamClassData.txt");
+
+	setStats(teams);
 }
 
 void getTeams(list<Team>& teams, string input) {
@@ -72,6 +72,7 @@ void assignTeams(list<Team>& teams) {
 
 	for (list<Team>::iterator it = teams.begin(); it != teams.end(); it++) {
 		it->setName(names[assign()]);
+		it->setStats();
 	}
 }
 
@@ -158,23 +159,4 @@ list<list<Team>> organize(list<Team>& teams) {
 		}
 	}
 	return RegionLists;
-}
-
-list<Team> setStats(list<Team>& teams) {
-
-	default_random_engine gen(time(NULL));
-	uniform_int_distribution<int> dist(300, 999);
-	auto set = bind(dist, gen);
-
-	ofstream fout("stats.txt");
-
-	list<Team>::iterator it;
-	for (it = teams.begin(); it != teams.end(); it++) {
-		it->setBatting(set());
-		it->setDefense(set());
-		it->setPitching(set());
-		fout << it->getCity() << " " << it->getName() << it->getState() << " " << it->getAverage() << endl;
-	}
-	fout.close();
-	return teams;
 }

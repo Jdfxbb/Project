@@ -2,7 +2,11 @@
 
 Team::Team(){ // default
 	this->name = this->city = this->state = this->zip = this->county = this->region = "";
-	this->batting = this->defense = 0;
+	this->batting = this->defense = this->wins = this->losses = 0;
+	for (int i = 0; i < 5; i++) {
+		rotation[i] = 0;
+	}
+
 }
 Team::Team(const Team& other){ // copy
 	this->name = other.name;
@@ -13,6 +17,11 @@ Team::Team(const Team& other){ // copy
 	this->region = other.region;
 	this->batting = other.batting;
 	this->defense = other.defense;
+	this->wins = other.wins;
+	this->losses = other.losses;
+	for (int i = 0; i < 5; i++) {
+		rotation[i] = other.rotation[i];
+	}
 }
 
 Team::Team(string name, string city, string state, string zip, string county, string region) { // assignment
@@ -22,7 +31,7 @@ Team::Team(string name, string city, string state, string zip, string county, st
 	this->zip = zip;
 	this->county = county;
 	this->region = region;
-	this->batting = this->defense = 0;
+	this->batting = this->defense = this->wins = this->losses = 0;
 }
 
 const Team& Team:: operator=(const Team& rhs){
@@ -35,6 +44,11 @@ const Team& Team:: operator=(const Team& rhs){
 		this->region = rhs.region;
 		this->batting = rhs.batting;
 		this->defense = rhs.defense;
+		this->wins = rhs.wins;
+		this->losses = rhs.losses;
+		for (int i = 0; i < 5; i++) {
+			rotation[i] = rhs.rotation[i];
+		}
 	}
 	return *this;
 }
@@ -68,4 +82,22 @@ bool Team::operator <(const Team& rhs){
 		return this->city < rhs.city;
 	}
 	return this->name < rhs.name;
+}
+
+void Team::setStats() {
+	default_random_engine gen1(time(NULL));
+	default_random_engine gen2(time(NULL));
+	default_random_engine gen3(time(NULL));
+	uniform_int_distribution<int> bat(100, 500);
+	uniform_int_distribution<int> def(50, 200);
+	uniform_int_distribution<int> pit(50, 500);
+	auto setB = bind(bat, gen1);
+	auto setD = bind(def, gen2);
+	auto setP = bind(pit, gen3);
+	this->setBatting(setB());
+	setD();
+	this->setDefense(setD());
+	for (int i = 0; i < 5; i++) {
+		this->setPitching(setP(), i);
+	}
 }

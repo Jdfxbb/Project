@@ -1,3 +1,4 @@
+
 Aces
 Admirals
 Aeros
@@ -105,6 +106,7 @@ Caimans
 Cajuns
 Camels
 Canadiens
+Canaries
 Cannoneers
 Canucks
 Capers
@@ -118,6 +120,7 @@ Cavaliers
 Celtics
 Celts
 Centaurs
+Centennials
 Chanticleers
 Chaparrals
 Chargers
@@ -246,6 +249,7 @@ Gorillas
 Gorloks
 Gothic Knights
 Governors
+Grays
 Great Danes
 Great Lakers
 Green Knights
@@ -310,6 +314,7 @@ Jumpers
 Kaisers
 Kangaroos
 Keelhaulers
+Keystones
 Kickers
 Kings
 Kingsmen
@@ -365,6 +370,7 @@ Moccasins
 Monarchs
 Monks
 Monsters
+Monumentals
 Moose
 Mountain Cats
 Mountain Hawks
@@ -395,11 +401,13 @@ Okra
 Oles
 Olmecs
 Olympians
+Olympics
 Orange
 Orediggers
 Orioles
 Ospreys
 Otters
+Outlaws
 Owls
 Pacers
 Packers
@@ -412,6 +420,7 @@ Patriots
 Peacocks
 Penguins
 Penmen
+Pepper
 Phantoms
 Phillies
 Phils
@@ -650,4 +659,4 @@ Wyverns
 Yankees
 Yellow Jackets
 Zephyrs
-Zips 
+Zips

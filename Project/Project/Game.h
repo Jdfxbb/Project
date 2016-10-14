@@ -29,14 +29,16 @@ struct Game {
 	}
 	void play() {
 		default_random_engine gen(time(NULL));
-		uniform_int_distribution<int> dist(1, 700);
-		auto set = bind(dist, gen);
+		uniform_int_distribution<int> off(1, 500);
+		uniform_int_distribution<int> def(1, 300);
+		auto setO = bind(off, gen);
+		auto setD = bind(def, gen);
 
 		while (Htotal == Atotal || inning <= 9) {
 			Hscore = Ascore = 0;
 			// top
-			offense = away.getBatting() + set();
-			defense = home.getPitching()  /1.5 + home.getDefense() / 2 + set();
+			offense = away.getBatting() + setO();
+			defense = home.getPitching() + home.getDefense() + setD();
 			if (offense > defense) {
 				if (offense - defense < balance) {
 					Ascore = 1;
@@ -46,8 +48,8 @@ struct Game {
 				}
 			}
 			// bottom
-			offense = home.getBatting() + set();
-			defense = away.getPitching() / 1.5 + home.getDefense() / 2 + set();
+			offense = home.getBatting() + setO();
+			defense = away.getPitching() + home.getDefense() + setD();
 			if (offense > defense) {
 				if (offense - defense < balance) {
 					Hscore = 1;

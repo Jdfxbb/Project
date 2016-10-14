@@ -3,14 +3,20 @@
 #include <iostream>
 #include <fstream>
 #include <map>
+#include <ctime>
+#include <random>
+#include <functional>
+#include <algorithm>
 using namespace std;
 
 class Team{
 
 private:
 	string name, city, state, zip, county, region;
-	int next, pitcher1, pitcher2, pitcher3, pitcher4, pitcher5, batting, defense;
+	int next, pitcher1, pitcher2, pitcher3, pitcher4, pitcher5;
+	int batting, defense;
 	int rotation[5] = { pitcher1, pitcher2, pitcher3, pitcher4, pitcher5 };
+	int wins, losses;
 
 public:
 	Team();
@@ -18,7 +24,12 @@ public:
 	Team(string name, string city, string state, string zip, string county, string region);
 	const Team& operator=(const Team& rhs);
 	
-	void rotate();
+	void rotate() {
+		next++;
+		if (next == 5) {
+			next = 0;
+		}
+	}
 
 
 	//get
@@ -33,6 +44,8 @@ public:
 	int getPitching() { return this->rotation[next]; }
 	int getBatting() { return this->batting; }
 	int getDefense() { return this->defense; }
+	int getWins() { return this->wins; }
+	int getLosses() { return this->losses; }
 
 	//set
 	void setName(string name) { this->name = name; }
@@ -41,9 +54,13 @@ public:
 	void setZip(string zip) { this->zip = zip; }
 	void setCounty(string county) { this->county = county; }
 	void setRegion(string region) { this->region = region; }
-	void setPitching(int n, int p) { this->rotation[p-1] = n; }
+	void setPitching(int n, int p) { this->rotation[p] = n; }
 	void setBatting(int n) { this->batting = n; }
 	void setDefense(int n) { this->defense = n; }
+	void setStats();
+
+	void win() { this->wins++; }
+	void lose() { this->losses++; }
 
 	//operators
 	friend istream& operator >>(istream& in, Team& other);
