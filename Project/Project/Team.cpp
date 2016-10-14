@@ -85,21 +85,3 @@ bool Team::operator <(const Team& rhs){
 	return this->name < rhs.name;
 }
 
-void Team::setStats() {
-	default_random_engine gen1(time(NULL));
-	default_random_engine gen2(time(NULL));
-	default_random_engine gen3(time(NULL));
-	uniform_int_distribution<int> bat(100, 500);
-	uniform_int_distribution<int> def(50, 200);
-	uniform_int_distribution<int> pit(50, 500);
-	auto setB = bind(bat, gen1);
-	auto setD = bind(def, gen2);
-	auto setP = bind(pit, gen3);
-	this->setBatting(setB());
-	setD();
-	this->setDefense(setD());
-	for (int i = 0; i < 5; i++) {
-		this->setPitching(setP(), i);
-	}
-	this->next = 0;
-}

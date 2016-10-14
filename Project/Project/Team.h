@@ -51,7 +51,7 @@ public:
 	void setPitching(int n, int p) { this->rotation[p] = n; }
 	void setBatting(int n) { this->batting = n; }
 	void setDefense(int n) { this->defense = n; }
-	void setStats();
+	void setNext(int n) { this->next = n; }
 
 	// game operations
 	void win() { this->wins++; }

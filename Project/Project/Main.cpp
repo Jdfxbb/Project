@@ -9,24 +9,25 @@
 #include <algorithm>
 #include "Team.h"
 #include "Game.h"
+#include "League.h"
 using namespace std;
 
-void assignTeams(vector<Team>& teams); // assigns random team names and stats
+void renameTeams(vector<Team>& teams); // assigns random team names
 void saveTeams(vector<Team> teams, string output); // puts current team dat in output file
 void getTeams(vector<Team>& teams, string input); // populates team list from input file
 vector<vector<Team>> organize(vector<Team>& teams); // assigns team to region, populates list of regions, not sure how to handle this data yet, probably needs to be split up into a few functions
+void generateStats(vector<Team>& team); // randomizes stats 
+void test(vector<Team>& teams, vector<League>& leagues);
+
 
 void main() {
 	vector<Team> teams; // make this a vector maybe?
+	vector<League> leagues;
 
 	getTeams(teams, "TeamClassData.txt");
-	assignTeams(teams);
+	generateStats(teams);
 
-	for (int i = 1; i < 10000; i++) { // this isn't working
-		Game game(teams[0], teams[i]);
-		game.play();
-	}
-	cout << teams[0].getWins() << " - " << teams[0].getLosses() << endl;
+	test(teams, leagues);
 
 
 	system("pause");
@@ -48,7 +49,7 @@ void getTeams(vector<Team>& teams, string input) {
 	}
 }
 
-void assignTeams(vector<Team>& teams) { // random numbers not working
+void renameTeams(vector<Team>& teams) { // random numbers not working
 	string temp;
 	Team team;
 
@@ -70,7 +71,6 @@ void assignTeams(vector<Team>& teams) { // random numbers not working
 
 	for (vector<Team>::iterator it = teams.begin(); it != teams.end(); it++) {
 		it->setName(names[assign()]);
-		it->setStats();
 	}
 }
 
@@ -157,4 +157,50 @@ vector<vector<Team>> organize(vector<Team>& teams) {
 		}
 	}
 	return RegionLists;
+}
+
+void generateStats(vector<Team>& teams) {
+	default_random_engine gen(time(NULL));
+	uniform_int_distribution<int> bat(100, 500);
+	uniform_int_distribution<int> def(50, 200);
+	uniform_int_distribution<int> pit(50, 500);
+	auto setB = bind(bat, gen);
+	auto setD = bind(def, gen);
+	auto setP = bind(pit, gen);
+
+	for (vector<Team>::iterator it = teams.begin(); it != teams.end(); it++) {
+		it->setBatting(setB());
+		it->setDefense(setD());
+		for (int i = 0; i < 5; i++) {
+			it->setPitching(setP(), i);
+		}
+		it->setNext(0);
+	}
+}
+
+void test(vector<Team>& teams, vector<League>& leagues) {
+	bool exists = false;
+	for (vector<Team>::iterator it = teams.begin(); it != teams.end(); it++) {
+		for (vector<League>::iterator lt = leagues.begin(); lt != leagues.end(); lt++) {
+			if (lt->getName() == it->getCounty() && lt->getState() == it->getState()) {
+				lt->add(*it);
+				exists = true;
+				break;
+			}
+
+		}
+		if (!exists) {
+			League league(it->getCounty(), it->getState());
+			league.add(*it);
+			leagues.push_back(league);
+			
+		}
+		exists = false;
+	}
+	sort(leagues.begin(), leagues.end());
+	ofstream fout("counties.txt");
+	for (vector<League>::iterator lt = leagues.begin(); lt != leagues.end(); lt++) {
+		fout << lt->getName() << " " << lt->getState() <<" "<< lt->size() << endl;
+	}
+
 }

@@ -11,7 +11,7 @@
 using namespace std;
 
 struct Game { // this can be made smoother
-	Team home, away;
+	Team* home, *away;
 	vector<int> boxHome, boxAway; // vectors for box score
 	int inning, balance;
 	int Hscore, Ascore, Htotal, Atotal, offense, defense;
@@ -19,7 +19,7 @@ struct Game { // this can be made smoother
 	Game() {
 		Hscore = Ascore = 0;
 	}
-	Game(Team& home, Team& away) {
+	Game(Team* home, Team* away) {
 		balance = 150; // higher number should mean lower scoring games
 		inning = 1;
 		this->home = home;
@@ -37,8 +37,8 @@ struct Game { // this can be made smoother
 		while (Htotal == Atotal || inning <= 9) {
 			Hscore = Ascore = 0;
 			// top
-			offense = away.getBatting() + setO();
-			defense = home.getPitching() + home.getDefense() + setD();
+			offense = away->getBatting() + setO();
+			defense = home->getPitching() + home->getDefense() + setD();
 			if (offense > defense) {
 				if (offense - defense < balance) {
 					Ascore = 1;
@@ -48,8 +48,8 @@ struct Game { // this can be made smoother
 				}
 			}
 			// bottom
-			offense = home.getBatting() + setO();
-			defense = away.getPitching() + home.getDefense() + setD();
+			offense = home->getBatting() + setO();
+			defense = away->getPitching() + home->getDefense() + setD();
 			if (offense > defense) {
 				if (offense - defense < balance) {
 					Hscore = 1;
@@ -67,13 +67,13 @@ struct Game { // this can be made smoother
 		}
 
 		if (Atotal > Htotal) {
-			away.win();
-			home.lose();
+			away->win();
+			home->lose();
 			return;
 		}
 		else {
-			home.win();
-			away.lose();
+			home->win();
+			away->lose();
 			return;
 		}
 	}
@@ -84,7 +84,7 @@ struct Game { // this can be made smoother
 		Orlando Bobcats 0	2	0	1	0	0	0	0	0	3
 		Lansing Aces    0	0	0	1	0	0	0	1	0	2
 															 */
-		out << other.away.getCity() << " @ " << other.home.getCity() << endl;
+		out << other.away->getCity() << " @ " << other.home->getCity() << endl;
 		for (int i = 0; i < other.boxAway.size(); i++) {
 			out << other.boxAway[i] << " ";
 		}
