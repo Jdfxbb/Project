@@ -27,9 +27,6 @@ void main() {
 	getTeams(teams, "TeamClassData.txt");
 	generateStats(teams);
 
-	test(teams, leagues);
-
-
 	system("pause");
 }
 
@@ -44,7 +41,9 @@ void getTeams(vector<Team>& teams, string input) {
 
 	fin >> team;
 	while (fin.good()) {
-		teams.push_back(team);
+		if (team.getCounty() != "") {
+			teams.push_back(team);
+		}
 		fin >> team;
 	}
 }

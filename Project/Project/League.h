@@ -9,7 +9,7 @@ private:
 	vector<Team> teams;
 	string name, state;
 public:
-	League() { state = name = ""; }
+	League() { this->state = this->name = ""; }
 	League(string name, string state) { this->name = name; this->state = state; }
 	
 	void add(Team& team) { this->teams.push_back(team); }
