@@ -10,7 +10,9 @@
 #include "Team.h"
 #include "Game.h"
 #include "League.h"
+#include <Windows.h>
 #include <SDL/SDL.h>
+#include <GL/glew.h>
 using namespace std;
 
 void renameTeams(vector<Team>& teams); // assigns random team names
