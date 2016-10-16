@@ -10,6 +10,7 @@
 #include "Team.h"
 #include "Game.h"
 #include "League.h"
+#include <SDL/SDL.h>
 using namespace std;
 
 void renameTeams(vector<Team>& teams); // assigns random team names
@@ -20,14 +21,18 @@ void generateStats(vector<Team>& team); // randomizes stats
 void test(vector<Team>& teams, vector<League>& leagues);
 
 
-void main() {
-	vector<Team> teams; // make this a vector maybe?
-	vector<League> leagues;
+int main(int argc, char** argv) {
+	SDL_Init(SDL_INIT_EVERYTHING);
 
-	getTeams(teams, "TeamClassData.txt");
-	generateStats(teams);
+	//vector<Team> teams;
+	//vector<League> leagues;
+
+	//getTeams(teams, "TeamClassData.txt");
+	//generateStats(teams);
+
 
 	system("pause");
+	return 0;
 }
 
 void getTeams(vector<Team>& teams, string input) {
