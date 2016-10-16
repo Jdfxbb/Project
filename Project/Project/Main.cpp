@@ -24,7 +24,12 @@ void test(vector<Team>& teams, vector<League>& leagues);
 
 
 int main(int argc, char** argv) {
+
 	SDL_Init(SDL_INIT_EVERYTHING);
+
+	SDL_Window* _window = nullptr;
+
+	_window = SDL_CreateWindow("Game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1024, 780, SDL_WINDOW_OPENGL);
 
 	//vector<Team> teams;
 	//vector<League> leagues;
