@@ -10,6 +10,7 @@
 #include "Team.h"
 #include "Game.h"
 #include "League.h"
+#include "MainGame.h"
 #include <Windows.h>
 #include <SDL/SDL.h>
 #include <GL/glew.h>
@@ -25,20 +26,14 @@ void test(vector<Team>& teams, vector<League>& leagues);
 
 int main(int argc, char** argv) {
 
-	SDL_Init(SDL_INIT_EVERYTHING);
-
-	SDL_Window* _window = nullptr;
-
-	_window = SDL_CreateWindow("Game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1024, 780, SDL_WINDOW_OPENGL);
-
 	//vector<Team> teams;
 	//vector<League> leagues;
 
 	//getTeams(teams, "TeamClassData.txt");
 	//generateStats(teams);
+	MainGame game;
+	game.run();
 
-
-	system("pause");
 	return 0;
 }
 
