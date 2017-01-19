@@ -2,8 +2,8 @@
 
 MainGame::MainGame() {
 	this->window = nullptr;
-	this->screenWidth = 1000;
-	this->screenHeight = 750;
+	this->screenWidth = 400;
+	this->screenHeight = 400;
 	this->gameState = GameState::PLAY;
 }
 MainGame::~MainGame() {
@@ -55,7 +55,7 @@ void MainGame::drawGame() {
 	glEnableClientState(GL_COLOR_ARRAY);
 
 	glBegin(GL_TRIANGLES);
-	glColor3f(1.0f, 1.0f, 1.0f);
+	glColor3f(0.0f, 0.0f, 1.0f);
 	glVertex2f(0,0);
 	glVertex2f(0, 500);
 	glVertex2f(-500, 500);
